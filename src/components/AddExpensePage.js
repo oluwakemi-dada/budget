@@ -6,6 +6,7 @@ import { addExpense } from '../actions/expenses';
 const AddExpensePage = ({ history }) => {
   const dispatch = useDispatch();
 
+  // HANDLERS
   const onSubmitHandler = (expense) => {
     dispatch(addExpense(expense));
     history.push('/');

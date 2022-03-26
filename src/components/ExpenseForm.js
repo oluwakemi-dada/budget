@@ -5,7 +5,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker } from 'react-dates';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSubmit }) => {
   // SELECTORS
   const expense = useSelector((state) => state.expenses);
 
@@ -48,11 +48,12 @@ const ExpenseForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    this.props.onSubmit({
-      description: this.state.description,
-      amount: parseFloat(this.state.amount, 10) * 100,
-      createdAt: this.state.createdAt.valueOf(),
-      note: this.state.note,
+    // Send data upstream
+    onSubmit({
+      description: description,
+      amount: parseFloat(amount, 10) * 100,
+      createdAt: createdAt.valueOf(),
+      note: note,
     });
   };
 

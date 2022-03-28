@@ -26,15 +26,11 @@ const ExpenseForm = ({ onSubmit, expense }) => {
     }
   };
 
-  const onDateChange = (createdAt) => {
+  const onDateChangeHandler = (createdAt) => {
     if (createdAt) setCreatedAt(createdAt);
   };
 
-  // const onFocusChangeHandler = ({ focused }) => {
-  //   setCalenderFocused(focused);
-  // };
-
-  const onFocusChange = ({ focused }) => {
+  const onFocusChangeHandler = ({ focused }) => {
     setCalenderFocused(focused);
   };
 
@@ -70,9 +66,9 @@ const ExpenseForm = ({ onSubmit, expense }) => {
       />
       <SingleDatePicker
         date={createdAt}
-        onDateChange={onDateChange}
+        onDateChange={onDateChangeHandler}
         focused={calenderFocused}
-        onFocusChange={onFocusChange}
+        onFocusChange={onFocusChangeHandler}
         numberOfMonths={1}
         readOnly={true}
         isOutsideRange={() => false}

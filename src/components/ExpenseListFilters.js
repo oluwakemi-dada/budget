@@ -27,7 +27,7 @@ const ExpenseListFilter = () => {
   };
 
   const onFocusChangeHandler = (calenderFocused) => {
-    setCalenderFocused({ calenderFocused });
+    setCalenderFocused(calenderFocused);
   };
 
   return (

@@ -12,8 +12,8 @@ const EditExpensePage = ({ history, match }) => {
   );
 
   // HANDLERS
-  const onSubmitHandler = (expense) => {
-    dispatch(editExpense(expense.id, expense));
+  const onSubmitHandler = (updatedExpense) => {
+    dispatch(editExpense(expense.id, updatedExpense));
     history.push('/');
   };
 

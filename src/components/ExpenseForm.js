@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import moment from 'moment';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { SingleDatePicker } from 'react-dates';
 
-const ExpenseForm = ({ onSubmit }) => {
-  // SELECTORS
-  const expense = useSelector((state) => state.expenses);
-
+const ExpenseForm = ({ onSubmit, expense }) => {
   // STATE
   const [description, setDescription] = useState(
     expense ? expense.description : ''
@@ -23,37 +19,33 @@ const ExpenseForm = ({ onSubmit }) => {
   const [calenderFocused, setCalenderFocused] = useState(false);
 
   // HANDLERS
-  const onDescriptionChangeHandler = (e) => {
-    const description = e.target.value;
-    setDescription({ description });
-  };
-
-  const onNoteChangeHandler = (e) => {
-    const note = e.target.value;
-    setNote({ note });
-  };
-
   const onAmountChangeHandler = (e) => {
-    const amount = e.target.value;
-    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) setAmount({ amount });
+    let amt = e.target.value;
+    if (!amt || amt.match(/^\d{1,}(\.\d{0,2})?$/)) {
+      setAmount(amt);
+    }
   };
 
-  const onDateChangeHandler = (createdAt) => {
-    if (createdAt) setCreatedAt({ createdAt });
+  const onDateChange = (createdAt) => {
+    if (createdAt) setCreatedAt(createdAt);
   };
 
-  const onFocusChangeHandler = ({ focused }) => {
-    setCalenderFocused({ calenderFocused: focused });
+  // const onFocusChangeHandler = ({ focused }) => {
+  //   setCalenderFocused(focused);
+  // };
+
+  const onFocusChange = ({ focused }) => {
+    setCalenderFocused(focused);
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // Send data upstream
     onSubmit({
-      description: description,
+      description,
       amount: parseFloat(amount, 10) * 100,
       createdAt: createdAt.valueOf(),
-      note: note,
+      note,
     });
   };
 
@@ -65,7 +57,7 @@ const ExpenseForm = ({ onSubmit }) => {
         autoFocus
         className='text-input'
         value={description}
-        onChange={onDescriptionChangeHandler}
+        onChange={(e) => setDescription(e.target.value)}
         required
       />
       <input
@@ -73,23 +65,23 @@ const ExpenseForm = ({ onSubmit }) => {
         placeholder='Amount'
         className='text-input'
         value={amount}
-        onChange={onAmountChangeHandler}
+        onChange={(e) => onAmountChangeHandler(e)}
         required
       />
       <SingleDatePicker
         date={createdAt}
-        onDateChange={onDateChangeHandler}
+        onDateChange={onDateChange}
         focused={calenderFocused}
-        onFocusChange={onFocusChangeHandler}
+        onFocusChange={onFocusChange}
         numberOfMonths={1}
         readOnly={true}
         isOutsideRange={() => false}
       />
       <textarea
         placeholder='Add a note'
-        value={note}
         className='textarea'
-        onChange={onNoteChangeHandler}
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
       ></textarea>
       <button className='button'>Add Expense</button>
     </form>

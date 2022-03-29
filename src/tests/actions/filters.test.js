@@ -31,10 +31,11 @@ test('should generate set end date action object', () => {
 });
 
 test('should generate set text filter action object', () => {
-  const action = setTextFilter('Book');
+  const text = 'Book';
+  const action = setTextFilter(text);
   expect(action).toEqual({
     type: SET_TEXT_FILTER,
-    payload: 'Book',
+    payload: text,
   });
 });
 

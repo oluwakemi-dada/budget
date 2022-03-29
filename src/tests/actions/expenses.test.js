@@ -1,9 +1,14 @@
 import { addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import {
+  ADD_EXPENSE,
+  REMOVE_EXPENSE,
+  EDIT_EXPENSE,
+} from '../../constants/expensesConstants';
 
 test('should setup remove expense action object', () => {
   const action = removeExpense('123abc');
   expect(action).toEqual({
-    type: 'REMOVE_EXPENSE',
+    type: REMOVE_EXPENSE,
     payload: '123abc',
   });
 });
@@ -15,7 +20,7 @@ test('should setup edit expense action object', () => {
   };
   const action = editExpense('123abc', expenseUpdate);
   expect(action).toEqual({
-    type: 'EDIT_EXPENSE',
+    type: EDIT_EXPENSE,
     payload: {
       id: '123abc',
       updates: expenseUpdate,
@@ -33,7 +38,7 @@ test('should setup edit expense action object with provided values', () => {
 
   const action = addExpense(expenseData);
   expect(action).toEqual({
-    type: 'ADD_EXPENSE',
+    type: ADD_EXPENSE,
     payload: {
       ...expenseData,
       id: expect.any(String),
@@ -50,7 +55,7 @@ test('should setup edit expense action object with default note', () => {
 
   const action = addExpense(expenseData);
   expect(action).toEqual({
-    type: 'ADD_EXPENSE',
+    type: ADD_EXPENSE,
     payload: {
       ...expenseData,
       note: '',

@@ -10,9 +10,7 @@ test('should setup remove expense action object', () => {
 
 test('should setup edit expense action object', () => {
   const expenseUpdate = {
-    description: 'sample description',
     note: 'sample note',
-    amount: 'sample amount',
     createdAt: 'sample date',
   };
   const action = editExpense('123abc', expenseUpdate);
@@ -21,6 +19,42 @@ test('should setup edit expense action object', () => {
     payload: {
       id: '123abc',
       updates: expenseUpdate,
+    },
+  });
+});
+
+test('should setup edit expense action object with provided values', () => {
+  const expenseData = {
+    description: 'Rent',
+    note: "This was last month's rent",
+    amount: '109500',
+    createdAt: '1000',
+  };
+
+  const action = addExpense(expenseData);
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE',
+    payload: {
+      ...expenseData,
+      id: expect.any(String),
+    },
+  });
+});
+
+test('should setup edit expense action object with default note', () => {
+  const expenseData = {
+    description: 'Rent',
+    amount: '109500',
+    createdAt: '1000',
+  };
+
+  const action = addExpense(expenseData);
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE',
+    payload: {
+      ...expenseData,
+      note: '',
+      id: expect.any(String),
     },
   });
 });

@@ -7,10 +7,10 @@ import {
 
 // ADD_EXPENSE
 export const addExpense = ({
-  description = '',
+  description,
+  amount,
+  createdAt,
   note = '',
-  amount = 0,
-  createdAt = 0,
 } = {}) => ({
   type: ADD_EXPENSE,
   payload: {

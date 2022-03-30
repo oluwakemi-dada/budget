@@ -4,17 +4,18 @@ import ExpenseListItem from './ExpenseListItem';
 import visibleExpenses from '../selectors/expenses';
 
 export const ExpenseList = () => {
-  // SELECTORS
-  const expenses = useSelector((state) =>
-    visibleExpenses(state.expenses, state.filters)
-  );
+  // SELECTOR
+  const expenses = useSelector((state) => state.expenses);
+  const filters = useSelector((state) => state.filters)
+
+  const visibleExp = visibleExpenses(expenses, filters)
 
   return (
     <div>
       {expenses.length === 0 ? (
         <p>No expenses</p>
       ) : (
-        expenses.map((expense) => (
+        visibleExp.map((expense) => (
           <ExpenseListItem key={expense.id} {...expense} />
         ))
       )}

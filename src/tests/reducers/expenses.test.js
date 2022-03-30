@@ -1,5 +1,5 @@
 import expensesReducer from '../../reducers/expenses';
-import { expenses } from '../fixtures/expenses';
+import expenses  from '../fixtures/expenses';
 import {
   ADD_EXPENSE,
   REMOVE_EXPENSE,

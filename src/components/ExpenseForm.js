@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 
@@ -15,6 +15,7 @@ const ExpenseForm = ({ onSubmit, expense }) => {
     expense ? moment(expense.createdAt) : moment()
   );
   const [calenderFocused, setCalenderFocused] = useState(false);
+  const [error, setError] = useState('');
 
   // HANDLERS
   const onAmountChangeHandler = (e) => {
@@ -34,51 +35,61 @@ const ExpenseForm = ({ onSubmit, expense }) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // Send data upstream
-    onSubmit({
-      description,
-      amount: parseFloat(amount, 10) * 100,
-      createdAt: createdAt.valueOf(),
-      note,
-    });
+
+    if (!description || !amount) {
+      // 'Please provide description and amount'
+      setError('Please provide description and amount');
+    } else {
+      // Clear error
+      setError('');
+
+      // Send data upstream
+      onSubmit({
+        description,
+        amount: parseFloat(amount, 10) * 100,
+        createdAt: createdAt.valueOf(),
+        note,
+      });
+    }
   };
 
   return (
-    <form className='form' onSubmit={onSubmitHandler}>
-      <input
-        type='text'
-        placeholder='Description'
-        autoFocus
-        className='text-input'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      <input
-        type='text'
-        placeholder='Amount'
-        className='text-input'
-        value={amount}
-        onChange={(e) => onAmountChangeHandler(e)}
-        required
-      />
-      <SingleDatePicker
-        date={createdAt}
-        onDateChange={onDateChangeHandler}
-        focused={calenderFocused}
-        onFocusChange={onFocusChangeHandler}
-        numberOfMonths={1}
-        readOnly={true}
-        isOutsideRange={() => false}
-      />
-      <textarea
-        placeholder='Add a note'
-        className='textarea'
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      ></textarea>
-      <button className='button'>Add Expense</button>
-    </form>
+    <div>
+      {error && <p>{error}</p>}
+      <form className='form' onSubmit={onSubmitHandler}>
+        <input
+          type='text'
+          placeholder='Description'
+          autoFocus
+          className='text-input'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Amount'
+          className='text-input'
+          value={amount}
+          onChange={(e) => onAmountChangeHandler(e)}
+        />
+        <SingleDatePicker
+          date={createdAt}
+          onDateChange={onDateChangeHandler}
+          focused={calenderFocused}
+          onFocusChange={onFocusChangeHandler}
+          numberOfMonths={1}
+          readOnly={true}
+          isOutsideRange={() => false}
+        />
+        <textarea
+          placeholder='Add a note'
+          className='textarea'
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        ></textarea>
+        <button className='button'>Add Expense</button>
+      </form>
+    </div>
   );
 };
 

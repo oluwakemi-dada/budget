@@ -4,6 +4,7 @@ import * as reactRedux from 'react-redux';
 import AddExpensePage from '../../components/AddExpensePage';
 import ExpenseForm from '../../components/ExpenseForm';
 import expenses from '../fixtures/expenses';
+import { ADD_EXPENSE } from '../../constants/expensesConstants';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -36,7 +37,7 @@ describe('Expense submission', () => {
     wrapper.find(ExpenseForm).prop('onSubmit')(expenses[1]);
     expect(history.push).toHaveBeenLastCalledWith('/');
     expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'ADD_EXPENSE',
+      type: ADD_EXPENSE,
       payload: {
         ...expenses[1],
         id: expect.any(String),

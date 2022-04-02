@@ -1,7 +1,7 @@
 import React from 'react';
 import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
-import { ExpenseList } from '../../components/ExpenseList';
+import ExpenseList from '../../components/ExpenseList';
 import expenses from '../fixtures/expenses';
 
 jest.mock('react-redux', () => ({

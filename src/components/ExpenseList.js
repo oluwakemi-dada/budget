@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import ExpenseListItem from './ExpenseListItem';
 import visibleExpenses from '../selectors/expenses';
 
-export const ExpenseList = () => {
+const ExpenseList = () => {
   // SELECTOR
   const expenses = useSelector((state) => state.expenses);
   const filters = useSelector((state) => state.filters)

@@ -5,7 +5,10 @@ import moment from 'moment';
 import EditExpensePage from '../../components/EditExpensePage';
 import ExpenseForm from '../../components/ExpenseForm';
 import expenses from '../fixtures/expenses';
-import { EDIT_EXPENSE } from '../../constants/expensesConstants';
+import {
+  EDIT_EXPENSE,
+  REMOVE_EXPENSE,
+} from '../../constants/expensesConstants';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -39,7 +42,7 @@ describe('edit expense actions', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test('should handle onSubmit on editExpensePage correctly', () => {
+  test('should handle onSubmitHandler on editExpensePage correctly', () => {
     const mockDispatch = jest.fn();
     const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
     mockUseDispatch.mockReturnValue(mockDispatch);
@@ -63,6 +66,24 @@ describe('edit expense actions', () => {
         id: '1',
         updates: { ...updatedExpense },
       },
+    });
+  });
+
+  test('should handle onRemoveHandler on editExpensePage correctly', () => {
+    const mockDispatch = jest.fn();
+    const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
+    const history = { push: jest.fn() };
+    const match = { params: { id: '1' } };
+    const wrapper = shallow(
+      <EditExpensePage history={history} match={match} />
+    );
+    wrapper.find('button').simulate('click');
+    expect(history.push).toHaveBeenLastCalledWith('/');
+    expect(mockDispatch).toHaveBeenLastCalledWith({
+      type: REMOVE_EXPENSE,
+      payload: '1',
     });
   });
 });

@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 const app = express();

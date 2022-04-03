@@ -2,6 +2,8 @@
 
 This is an expense manager application being built at the moment with React, Redux, Javascript, SCSS, Firebase, Jest and Enzyme.
 
+Preview App - [Budget](https://budget-app-123.herokuapp.com)
+
 ## Built With
 
 - Reactjs

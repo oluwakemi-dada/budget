@@ -95,6 +95,15 @@ describe('ExpenseListFilters with filters data', () => {
       payload: dates.endDate,
     });
   });
+
+  test('should handle date focus change', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    const focused = true;
+    const wrapper = shallow(<ExpenseListFilter />);
+    wrapper.find(DateRangePicker).prop('onFocusChange')(focused);
+
+    expect(wrapper.find(DateRangePicker).prop('focusedInput')).toBe(focused);
+  });
 });
 
 describe('ExpenseListFilters with alt filters data', () => {

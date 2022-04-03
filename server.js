@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 const publicPath = path.join(__dirname, 'frontend', 'build');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || process.env.PORT;
 
 // LOAD BUILD INDEX.JS FILE
 if (process.env.NODE_ENV === 'production') {

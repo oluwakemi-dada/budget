@@ -43,6 +43,20 @@ describe('ExpenseListFilters with filters data', () => {
     const wrapper = shallow(<ExpenseListFilter />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  test('should handle text change', () => {
+    const mockDispatch = jest.fn();
+    const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
+    const value = 'card';
+    const wrapper = shallow(<ExpenseListFilter />);
+    wrapper.find('input').at(0).simulate('change', { target: { value } });
+    expect(mockDispatch).toHaveBeenLastCalledWith({
+      type: SET_TEXT_FILTER,
+      payload: value,
+    });
+  });
 });
 
 describe('ExpenseListFilters with alt filters data', () => {

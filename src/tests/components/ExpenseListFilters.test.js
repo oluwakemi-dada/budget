@@ -57,18 +57,38 @@ describe('ExpenseListFilters with filters data', () => {
       payload: value,
     });
   });
+
+  test('should sort by amount', () => {
+    const mockDispatch = jest.fn();
+    const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
+    const value = 'amount';
+    const wrapper = shallow(<ExpenseListFilter />);
+    wrapper.find('select').simulate('change', {
+      target: {
+        value,
+      },
+    });
+    expect(mockDispatch).toHaveBeenLastCalledWith({
+      type: SORT_BY_AMOUNT,
+    });
+  });
 });
 
 describe('ExpenseListFilters with alt filters data', () => {
   beforeEach(() => {
     useSelectorMock.mockImplementation((selector) => selector(mockStore));
+    useDispatchMock.mockImplementation(() => () => {});
   });
 
   afterEach(() => {
     useSelectorMock.mockClear();
+    useDispatchMock.mockClear();
   });
 
   const useSelectorMock = reactRedux.useSelector;
+  const useDispatchMock = reactRedux.useDispatch;
 
   const mockStore = {
     filters: altFilters,
@@ -77,5 +97,22 @@ describe('ExpenseListFilters with alt filters data', () => {
   test('should render ExpenseListFilters with alt data  correctly', () => {
     const wrapper = shallow(<ExpenseListFilter />);
     expect(wrapper).toMatchSnapshot();
+  });
+
+  test('should sort by date', () => {
+    const mockDispatch = jest.fn();
+    const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
+    const value = 'date';
+    const wrapper = shallow(<ExpenseListFilter />);
+    wrapper.find('select').simulate('change', {
+      target: {
+        value,
+      },
+    });
+    expect(mockDispatch).toHaveBeenLastCalledWith({
+      type: SORT_BY_DATE,
+    });
   });
 });

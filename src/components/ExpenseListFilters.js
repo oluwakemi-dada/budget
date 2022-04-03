@@ -30,6 +30,15 @@ const ExpenseListFilter = () => {
     setCalenderFocused(calenderFocused);
   };
 
+  const onTextChangeHandler = (e) => {
+    dispatch(setTextFilter(e.target.value));
+  };
+
+  const onSortChangeHandler = (e) => {
+    if (e.target.value === 'date') dispatch(sortByDate());
+    else if (e.target.value === 'amount') dispatch(sortByAmount());
+  };
+
   return (
     <div className='content-container'>
       <div className='input-group'>
@@ -40,7 +49,7 @@ const ExpenseListFilter = () => {
             placeholder='Search expenses'
             value={filters.text}
             onChange={(e) => {
-              dispatch(setTextFilter(e.target.value));
+              onTextChangeHandler(e);
             }}
           />
         </div>
@@ -48,10 +57,7 @@ const ExpenseListFilter = () => {
           <select
             className='select'
             value={filters.sortBy}
-            onChange={(e) => {
-              if (e.target.value === 'date') dispatch(sortByDate());
-              else if (e.target.value === 'amount') dispatch(sortByAmount());
-            }}
+            onChange={(e) => onSortChangeHandler(e)}
           >
             <option value='date'>Date</option>
             <option value='amount'>Amount</option>

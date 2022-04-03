@@ -16,7 +16,11 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('edit expense actions', () => {
+  let history, match;
+  
   beforeEach(() => {
+    history = { push: jest.fn() };
+    match = { params: { id: '1' } };
     useSelectorMock.mockImplementation((selector) => selector(mockStore));
     useDispatchMock.mockImplementation(() => () => {});
   });
@@ -34,8 +38,6 @@ describe('edit expense actions', () => {
   };
 
   test('should render EditExpensePage with expense data', () => {
-    const history = { push: jest.fn() };
-    const match = { params: { id: '1' } };
     const wrapper = shallow(
       <EditExpensePage history={history} match={match} />
     );
@@ -46,6 +48,7 @@ describe('edit expense actions', () => {
     const mockDispatch = jest.fn();
     const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
     mockUseDispatch.mockReturnValue(mockDispatch);
+
     const updatedExpense = {
       description: 'Outfits shopping',
       note: 'Man needs to be pampered',
@@ -53,11 +56,10 @@ describe('edit expense actions', () => {
       createdAt: moment(0).add(4000, 'days'),
     };
 
-    const history = { push: jest.fn() };
-    const match = { params: { id: '1' } };
     const wrapper = shallow(
       <EditExpensePage history={history} match={match} />
     );
+
     wrapper.find(ExpenseForm).prop('onSubmit')(updatedExpense);
     expect(history.push).toHaveBeenLastCalledWith('/');
     expect(mockDispatch).toHaveBeenLastCalledWith({
@@ -74,11 +76,10 @@ describe('edit expense actions', () => {
     const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
     mockUseDispatch.mockReturnValue(mockDispatch);
 
-    const history = { push: jest.fn() };
-    const match = { params: { id: '1' } };
     const wrapper = shallow(
       <EditExpensePage history={history} match={match} />
     );
+
     wrapper.find('button').simulate('click');
     expect(history.push).toHaveBeenLastCalledWith('/');
     expect(mockDispatch).toHaveBeenLastCalledWith({

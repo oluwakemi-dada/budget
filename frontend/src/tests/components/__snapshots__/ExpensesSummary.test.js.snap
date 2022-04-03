@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpensesSummary with a single expense should correctly add up a single expense 1`] = `
+<div>
+  <h1>
+    Viewing 
+    1
+     
+    expense
+     totaling 
+    $45.00
+  </h1>
+</div>
+`;
+
+exports[`ExpensesSummary with multiple expenses should correctly add up multiple expenses 1`] = `
+<div>
+  <h1>
+    Viewing 
+    3
+     
+    expenses
+     totaling 
+    $1,141.95
+  </h1>
+</div>
+`;
+
+exports[`ExpensesSummary with no expense should return 0 if no expense 1`] = `
+<div>
+  <h1>
+    Viewing 
+    0
+     
+    expenses
+     totaling 
+    $0.00
+  </h1>
+</div>
+`;

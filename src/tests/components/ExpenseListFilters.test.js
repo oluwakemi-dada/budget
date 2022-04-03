@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as reactRedux from 'react-redux';
+import { DateRangePicker } from 'react-dates';
+import moment from 'moment';
 import ExpenseListFilter from '../../components/ExpenseListFilters';
 import { filters, altFilters } from '../fixtures/filters';
 import {
@@ -72,6 +74,25 @@ describe('ExpenseListFilters with filters data', () => {
     });
     expect(mockDispatch).toHaveBeenLastCalledWith({
       type: SORT_BY_AMOUNT,
+    });
+  });
+
+  test('should handle date changes', () => {
+    const mockDispatch = jest.fn();
+    const mockUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
+    const dates = {
+      startDate: moment(0),
+      endDate: moment(0).add(3, 'days'),
+    };
+    const wrapper = shallow(<ExpenseListFilter />);
+    wrapper.find(DateRangePicker).prop('onDatesChange')(dates);
+    expect(mockDispatch).toHaveBeenLastCalledWith({
+      type: SET_START_DATE,
+      payload: dates.startDate,
+      type: SET_END_DATE,
+      payload: dates.endDate,
     });
   });
 });

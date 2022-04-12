@@ -7,7 +7,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "babel-polyfill": "^6.26.0",
-    "firebase": "^7.13.1",
+    "firebase": "^7.24.0",
     "history": "^4.10.1",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",

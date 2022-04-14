@@ -1,4 +1,6 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
+// import 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBtMvNB2veqjopiMl2F2X5xNIT5pI3edRs',
@@ -14,12 +16,6 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-firebase.database().ref().set({
-  name: 'Oluwakemi Dada',
-  age: 24,
-  isSingle: true,
-  location: {
-    city: 'Akure',
-    country: 'Nigeria',
-  },
-});
+const database = firebase.database();
+
+export { firebase, database as default };

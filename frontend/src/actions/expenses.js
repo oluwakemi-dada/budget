@@ -7,8 +7,11 @@ import {
 } from '../constants/expensesConstants';
 
 // ADD_EXPENSE
-export const addExpense = (expense) => (dispatch) => {
-  database
+export const addExpense = (expenseData) => async (dispatch) => {
+  const { description, note = '', amount, createdAt } = expenseData;
+  const expense = { description, note, amount, createdAt };
+
+  return database
     .ref('expenses')
     .push(expense)
     .then((ref) => {
